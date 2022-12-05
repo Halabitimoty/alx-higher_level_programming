@@ -1,16 +1,14 @@
 #!/usr/bin/python3
 def element_at(my_list, idx):
-    """Retrieves an element from a list like in C
+    '''Retrieves element at a given index of a list
 
     Args:
-        my_list: the given list
-        idx: given index
+        my_list: list
+        idx: index
 
     Returns:
-        None if idx is -ve or more than the length of my_list
-    """
-    list_length = len(my_list)
-    if idx < 0 or idx >= list_length:
+        element at given index
+    '''
+    if idx < 0 or idx >= len(my_list):
         return None
-
-    return my_list[idx]
+    return my_list.pop(idx)

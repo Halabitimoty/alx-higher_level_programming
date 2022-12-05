@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 def no_c(my_string):
-    """Removes all characters c and C from a string
+    '''removes all characters c and C from a string
 
     Args:
-        my_string: the given string
+        my_string: string
 
     Returns:
-        the new string
-    """
-    str_list = [ch for ch in my_string if ch != 'c' and ch != 'C']
-    return ''.join(str_list)
-
-print(no_c('Best School Chicago'))
+        new string with no c or C
+    '''
+    my_list = []
+    for c in my_string:
+        if c != 'c' and c != 'C':
+            my_list.append(c)
+    return ''.join(my_list)

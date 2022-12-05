@@ -1,15 +1,13 @@
 #!/usr/bin/python3
 def multiple_returns(sentence):
-    """Gets a tuple of sentence length and its first character
+    '''returns a tuple with the length of a string and its first character
 
     Args:
-        sentence: the given string
+        sentence: string
 
     Returns:
-        the tuple of sentence length and its first character
-    """
-    str_len = len(sentence)
-    if str_len == 0:
-        return 0, None
-
-    return str_len, sentence[0]
+        string length and first character
+    '''
+    if len(sentence) == 0:
+        return (0, None)
+    return (len(sentence), sentence[0])

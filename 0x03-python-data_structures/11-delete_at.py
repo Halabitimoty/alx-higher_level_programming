@@ -1,15 +1,15 @@
 #!/usr/bin/python3
 def delete_at(my_list=[], idx=0):
-    """Deletes the item at a specific position in a list
+    '''deletes item at a given index in a list
 
     Args:
-        my_list: the given list
-        idx: the given index
+        my_list: list to delete its item
+        idx: index of the item
 
-    Returns:
-        the new list
-    """
+    Return:
+        New list with item deleted
+    '''
     if idx < 0 or idx >= len(my_list):
         return my_list
-
     del my_list[idx]
+    return my_list
