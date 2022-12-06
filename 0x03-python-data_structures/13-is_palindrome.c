@@ -1,96 +1,71 @@
 #include "lists.h"
 
-size_t list_len(listint_t *head);
-int *convert_to_array(listint_t *head, size_t len);
-int is_palindrome_recursive(int *arr, size_t i, size_t j);
+/**
+ * reverse_listint - reverses a linked list
+ * @head: pointer to the first node in the list
+ *
+ * Return: pointer to the first node in the new list
+ */
+void reverse_listint(listint_t **head)
+{
+	listint_t *prev = NULL;
+	listint_t *current = *head;
+	listint_t *next = NULL;
+
+	while (current)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+
+	*head = prev;
+}
 
 /**
- * is_palindrome - checks if a singly linked list is a palindrome
- * @head: pointer to the head of the list
+ * is_palindrome - checks if a linked list is a palindrome
+ * @head: double pointer to the linked list
  *
- * Return: 0 if list is not a palindrome, 1 otherwise
+ * Return: 1 if it is, 0 if not
  */
 int is_palindrome(listint_t **head)
 {
-	int *int_array;
-	size_t len = list_len(*head);
-	if (len < 2)
+	listint_t *slow = *head, *fast = *head, *temp = *head, *dup = NULL;
+
+	if (*head == NULL || (*head)->next == NULL)
 		return (1);
 
-	else
+	while (1)
 	{
-		int_array = convert_to_array(*head, len);
-		if (int_array == NULL)
-			exit(1);
-
-		return (is_palindrome_recursive(int_array));
-	}
-}
-
-/**
- * list_len - computes the length of a singly linked list
- * @head: pointer to the head of the list
- *
- * Return: the length of the list
- */
-size_t list_len(listint_t *head)
-{
-	size_t len = 0;
-	listint_t *current = head;
-
-	while (current != NULL)
-	{
-		len++;
-		current = current->next;
+		fast = fast->next->next;
+		if (!fast)
+		{
+			dup = slow->next;
+			break;
+		}
+		if (!fast->next)
+		{
+			dup = slow->next->next;
+			break;
+		}
+		slow = slow->next;
 	}
 
-	return (len);
-}
+	reverse_listint(&dup);
 
-/**
- * convert_to_array - converts a singly linked list to array
- * @head: pointer to the head of the list
- * @len: length of the list
- *
- * Return: pointer to the array
- */
-int *convert_to_array(listint_t *head, size_t len)
-{
-	listint_t *current = head;
-	int *int_arr;
-	size_t idx = 0;
-
-	int_arr = malloc(sizeof(int) * len);
-	if (int_arr == NULL)
-		return (NULL);
-
-	while (current != NULL)
+	while (dup && temp)
 	{
-		int_arr[idx] = current->n;
-		idx++;
-		current = current-next;
+		if (temp->n == dup->n)
+		{
+			dup = dup->next;
+			temp = temp->next;
+		}
+		else
+			return (0);
 	}
 
-	return (int_arr);
-}
-
-/**
- * is_palindrome_recursive - checks if an array is a palindrome
- * @arr: array of integer
- * @i:...
- * @j:...
- *
- * Return: 1 if palindrome, 0 if otherwise
- */
-int is_palindrome_recursive(int *arr, size_t i, sie_t j)
-{
-	int l;
-
-	l = j - i;
-	if (l < 1)
-		return (1);
-
-	if ((arr[i] == arr[j]) && is_palindrome_recursive(arr, ++i, --j))
+	if (!dup)
 		return (1);
 
 	return (0);
